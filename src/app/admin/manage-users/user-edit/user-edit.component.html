@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Edit User</h1>
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <form class="user" [formGroup]="editUserForm">
+                <div class="form-group">
+                    <input type="email" formControlName="name" class="form-control form-control-user"
+                        id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter name ">
+                        <span
+                        *ngIf="name?.touched && !name.valid && name.errors?.required">{{ errorMsg.FIELD_REQUIRED }}</span>
+                    <span *ngIf="name.dirty && name.errors?.maxlength"> {{ errorMsg.MAX_LENGTH(200) }}</span>
+                    <span *ngIf="name.dirty && name.errors?.pattern"> {{ errorMsg.ONLY_ALPHA_NUMERIC }}</span>
+                </div>
+                <div class="form-group">
+                        <input type="email" formControlName="email" class  ="form-control form-control-user"
+                            id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email ">
+                            <span
+                            *ngIf="email?.touched && !email.valid && email.errors?.required ">{{ errorMsg.FIELD_REQUIRED }}</span>
+                        <span *ngIf="email.dirty && email.errors?.pattern">{{ errorMsg.EMAIL_INCORRECT_FORMAT }}</span>
+                    </div>
+                <div class="form-group">
+                    <input type="text" formControlName="phone_number" numberOnly class="form-control form-control-user"
+                        id="exampleInputPassword" placeholder="Phone number">
+                        <span
+                        *ngIf="phone_number?.touched && !phone_number.valid && phone_number.errors?.required">{{ errorMsg.FIELD_REQUIRED }}</span>
+                    <span *ngIf="phone_number.dirty && phone_number.errors?.maxlength"> {{ errorMsg.MAX_LENGTH(12) }}</span>
+                    <span *ngIf="phone_number.dirty && phone_number.errors?.pattern"> {{ errorMsg.ONLY_NUMERIC }}</span>
+                </div>
+                <a type="submit" (click)="onSubmit()" class="btn btn-primary btn-user btn-block">
+                    Submit
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">User List</h1>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example 
+        <a href="javascript:void(0);" style="text-align: right"
+        [routerLink]="['add' ]" class="btn btn-danger btn-circle btn-sm">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </a></h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="dataList.length === 0 && !loading">
+              <td colspan="9">
+                <app-manage-no-data></app-manage-no-data>
+              </td>
+            </tr>
+            <tr *ngFor="let user of dataList | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalQueryableData} ;let i = index; ">
+              <td> {{ user?.id }} </td>
+              <td> {{ user?.name }} </td>
+              <td> {{ user?.email }} </td>
+              <td> {{ user?.phone_number }} </td>
+              <td>
+                <a href="#" [routerLink]="[ user?.id, 'edit' ]" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="javascript:void(0);" (click)="onDelete(user?.id)" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <pagination-controls (pageChange)="getData($event)" [id]="id"></pagination-controls>
+  </div>
+</div>
+
+<app-confirmation-box #popupConfirmBox BodyMessage='Are you sure you want to  {{popupBodyMessage}} '
+  (btnclick)="updateStatusById($event)" BtnCancel="Cancel" BtnConfirm="Confirm">
+</app-confirmation-box>
